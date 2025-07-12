@@ -1,0 +1,33 @@
+07.12 4:55 PM
+import datetime
+import time
+import playsound  # Install via pip if not present: pip install playsound
+
+def set_alarm():
+    alarm_time = input("Set the alarm time (HH:MM:SS AM/PM): ")
+    alarm_hour, alarm_minute, alarm_second_period = alarm_time.split(":")
+    alarm_second, period = alarm_second_period.split()
+
+    alarm_hour = int(alarm_hour)
+    alarm_minute = int(alarm_minute)
+    alarm_second = int(alarm_second)
+
+    if period.lower() == "pm" and alarm_hour != 12:
+        alarm_hour += 12
+    elif period.lower() == "am" and alarm_hour == 12:
+        alarm_hour = 0
+
+    print("Alarm is set!")
+
+    while True:
+        now = datetime.datetime.now()
+        if (now.hour == alarm_hour and
+            now.minute == alarm_minute and
+            now.second == alarm_second):
+            print("Wake up!")
+            playsound.playsound("alarm.mp3")  # Replace with your alarm tone path
+            break
+        time.sleep(1)
+
+if __name__ == "__main__":
+    set_alarm()
